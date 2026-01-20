@@ -44,22 +44,15 @@ export const HelpDocContent = ({ category, slug }: HelpDocContentProps) => {
 
   return (
     <div className="space-y-6">
-      {/* 文章元信息 */}
       {frontmatter.title && (
-        <h1 className="text-3xl font-bold text-slate-900">{frontmatter.title}</h1>
+        <h1 className="text-5xl font-bold text-slate-900">{frontmatter.title}</h1>
       )}
       
-      {(frontmatter.readTime || frontmatter.updatedAt) && (
-        <div className="flex items-center gap-4 text-sm text-slate-500">
-          {frontmatter.readTime && <span>阅读时长：{frontmatter.readTime} 分钟</span>}
-          {frontmatter.readTime && frontmatter.updatedAt && (
-            <span className="w-1 h-1 bg-slate-300 rounded-full" />
-          )}
-          {frontmatter.updatedAt && <span>更新时间：{frontmatter.updatedAt}</span>}
+      {(frontmatter.updatedAt) && (
+        <div className="text-sm text-slate-500 border-b border-slate-200 pb-2">
+          <span>更新时间：{frontmatter.updatedAt}</span>
         </div>
       )}
-
-      {/* Markdown 内容 */}
       <MarkdownRenderer content={content} />
     </div>
   );

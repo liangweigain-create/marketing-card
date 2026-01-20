@@ -62,7 +62,7 @@ const Sidebar = ({ categoryId, currentSlug }: SidebarProps) => {
           <ChevronRight className="w-4 h-4 rotate-180 mr-1" />
           返回帮助中心
         </Link>
-        <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+        <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 border-b border-slate-250 pb-4">
           <Icon className={cn("w-5 h-5", category.iconColor)} />
           {category.title}
         </h2>
@@ -72,7 +72,7 @@ const Sidebar = ({ categoryId, currentSlug }: SidebarProps) => {
       <div className="space-y-6">
         {sections.map((section, idx) => (
           <div key={idx}>
-            <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
+            <div className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">
               {section.title}
             </div>
             <div className="space-y-1">
@@ -216,7 +216,7 @@ export const HelpDocLayout = ({
         <div className="flex">
           {/* 内容区域 */}
           <div className="flex-1 min-w-0 px-6 py-8 lg:px-12 lg:py-12">
-            <div className="max-w-3xl mx-auto min-h-[500px]">
+            <div className="max-w-[700px] mx-auto min-h-[500px]">
               {/* 移动端搜索 */}
               <div className="lg:hidden mb-8">
                 <div className="relative">

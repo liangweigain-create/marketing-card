@@ -1,4 +1,5 @@
 import { useParams, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { HelpDocLayout } from './components/HelpDocLayout';
 import { HelpDocContent } from './components/HelpDocContent';
 import { useMarkdown } from './hooks/useMarkdown';
@@ -25,6 +26,11 @@ export const GenericHelpPage = () => {
 
   const categoryId = validCategory.id;
   const currentSlug = slug || getFirstArticleSlug(categoryId);
+  
+  // 切换文章时滚动到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [categoryId, currentSlug]);
   
   // 加载 Markdown 内容和 TOC
   const { toc } = useMarkdown(`/content/help/${categoryId}/${currentSlug}.md`);

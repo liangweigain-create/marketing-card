@@ -17,8 +17,48 @@
   margin-bottom: 0.5rem !important;
 }
 
+/* 响应式列表缩进：移动端更小 */
+.prose ul,
+.prose ol {
+  padding-left: 1rem;
+}
+
+.prose li ul,
+.prose li ol {
+  padding-left: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .prose ul,
+  .prose ol {
+    padding-left: 1.25rem;
+  }
+
+  .prose li ul,
+  .prose li ol {
+    padding-left: 1.25rem;
+  }
+}
+
+/* 锚点滚动补偿：避免被固定 Header 遮挡 */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  scroll-margin-top: 80px;
+}
+
 :root {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    "微软雅黑",
+    Arial,
+    sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

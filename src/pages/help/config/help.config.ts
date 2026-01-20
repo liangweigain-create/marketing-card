@@ -29,18 +29,18 @@ export interface HelpCategory {
 
 export const HELP_CATEGORIES: HelpCategory[] = [
   {
+    id: 'start',
+    title: '快速上手指引',
+    description: '加入企业，认识名片界面，完善个人设置。',
+    icon: User,
+    iconColor: 'text-purple-600',
+  },
+  {
     id: 'manager',
     title: '管理员指南',
     description: '创建企业并添加成员，搭建组织架构，完成管理初始设置。',
     icon: Settings,
     iconColor: 'text-blue-600',
-  },
-  {
-    id: 'start',
-    title: '快速开始',
-    description: '加入企业，认识名片界面，完善个人设置。',
-    icon: User,
-    iconColor: 'text-purple-600',
   },
   {
     id: 'market',
@@ -68,6 +68,29 @@ export interface SidebarItem {
 // 每个分类的侧边栏配置
 // 📌 添加新文章：在对应分类下添加新的 item
 export const HELP_SIDEBAR: Record<HelpCategory['id'], SidebarSection[]> = {
+  start: [
+    {
+      title: '企业名片',
+      items: [
+        { label: '加入组织', slug: 'join-company' },
+        { label: '了解名片界面', slug: 'card-interface' },
+        { label: '完善配置', slug: 'quick-config' },
+        { label: '开始获客', slug: 'start-use' },
+      ],
+    },
+    {
+      title: '个人名片',
+      items: [
+        { label: '快速注册', slug: 'quick-sign-up' },
+      ],
+    },
+    {
+      title: '进阶技巧',
+      items: [
+        { label: '更多使用技巧', slug: 'more-skills' },
+      ],
+    },
+  ],
   manager: [
     {
       title: '快速开始',
@@ -83,24 +106,6 @@ export const HELP_SIDEBAR: Record<HelpCategory['id'], SidebarSection[]> = {
         { label: '完善企业基础配置', slug: 'basic-config' },
         { label: '配置业务管理功能', slug: 'business-config' },
         { label: '同步与迁移数据', slug: 'data-migration' },
-      ],
-    },
-  ],
-  start: [
-    {
-      title: '快速开始',
-      items: [
-        { label: '产品简介', slug: 'intro' },
-        { label: '加入企业', slug: 'join-company' },
-        { label: '认识名片界面', slug: 'card-interface' },
-      ],
-    },
-    {
-      title: '日常使用',
-      items: [
-        { label: '编辑个人资料', slug: 'edit-profile' },
-        { label: '分享名片', slug: 'share-card' },
-        { label: '管理名片夹', slug: 'card-folder' },
       ],
     },
   ],
