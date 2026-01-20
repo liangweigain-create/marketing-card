@@ -1,9 +1,8 @@
-"use client"; // 确保在 Next.js 中作为客户端组件运行
+"use client";
 
 import { useState, useEffect, useRef } from 'react';
 import { Palette, Share2, BarChart3, ArrowUpRight } from 'lucide-react';
 import { cn } from "@/lib/utils";
-// 引入 Recharts 组件
 import { 
   Area, 
   AreaChart, 
@@ -18,8 +17,7 @@ interface VisitorChartProps{
   isActive: boolean
 }
 
-// 1. 修改组件定义，接收 isActive 参数
-const VisitorChart = ({ isActive }: VisitorChartProps) => { // <--- 接收这个 props
+const VisitorChart = ({ isActive }: VisitorChartProps) => {
   const data = [
     { name: '周一', visitors: 120 },
     { name: '周二', visitors: 240 },
@@ -77,7 +75,7 @@ const VisitorChart = ({ isActive }: VisitorChartProps) => { // <--- 接收这个
               cursor={{ stroke: '#d8b4fe', strokeWidth: 1 }}
             />
             <Area 
-              type="monotone" // 或者尝试 "natural" 会更圆润
+              type="monotone" // 或者 "natural" 
               dataKey="visitors" 
               stroke="#9333ea" 
               strokeWidth={3}
@@ -85,18 +83,12 @@ const VisitorChart = ({ isActive }: VisitorChartProps) => { // <--- 接收这个
               fill="url(#colorVisitors)" 
               
               /* --- 1. 错峰策略：延迟启动 --- */
-              /* 外层容器淡入需要 700ms。我们让图表等 400ms 再开始画，
-                既避开了渲染高峰，又让用户感觉“图表是随着卡片出现后生长出来的”，更有层次感 */
               animationBegin={400} 
 
               /* --- 2. 调整时长 --- */
-              /* 2000ms 有点太慢了，容易显得拖沓。1500ms 是一个黄金平衡点 */
               animationDuration={1500}
 
-              /* --- 3. 丝滑的核心：贝塞尔曲线 --- */
-              /* 默认的 'ease' 比较生硬。
-                这是一个类似 iOS 系统的物理缓动曲线：启动快，中间平滑，收尾极其柔和 */
-              animationEasing="ease-in-out"//"cubic-bezier(0.25, 0.1, 0.25, 1.0)"
+              animationEasing="ease-in-out"
             />
           </AreaChart>
         </ResponsiveContainer>
@@ -108,7 +100,7 @@ const VisitorChart = ({ isActive }: VisitorChartProps) => { // <--- 接收这个
 const features = [
   {
     id: "edit",
-    title: "1. 拖拽式名片设计",
+    title: "拖拽式名片设计",
     desc: "无需设计基础，像搭积木一样实时创建、更新您的专业名片。支持自定义企业Logo、品牌配色及排版布局，所见即所得。",
     icon: <Palette className="w-6 h-6 text-blue-600" />,
     visual: (
@@ -122,8 +114,8 @@ const features = [
   },
   {
     id: "share",
-    title: "2. 微信原生一键分享",
-    desc: "一键分享电子名片。在微信聊天、朋友圈、群聊中无缝流转，客户点击即可一键保存到通讯录。",
+    title: "批量导入员工信息",
+    desc: "支持Excel/CSV一键导入员工信息，自动生成专属名片。告别手动录入，快速组建销售团队。",
     icon: <Share2 className="w-6 h-6 text-green-600" />,
     visual: (
       <div className="w-full h-full bg-green-50 flex items-center justify-center">
@@ -138,12 +130,9 @@ const features = [
   },
   {
     id: "track",
-    title: "3. 访客数据实时追踪",
+    title: "访客数据实时追踪",
     desc: `不再盲目发名片。谁查看了？谁保存了？系统实时推送通知，帮您锁定高意向客户，把握成交良机。`,
     icon: <BarChart3 className="w-6 h-6 text-purple-600" />,
-    // --- 修改了这里 ---
-    // 这里的 isActive={false} 只是为了满足 TypeScript 类型检查
-    // 实际上这个 <VisitorChart ...> 不会被渲染，因为你在下面的 return 里用逻辑把它覆盖了
     visual: <VisitorChart isActive={false} /> 
   }
 ];
@@ -184,7 +173,7 @@ export function FeatureScroll() {
               <p className="text-slate-600">从创建到分发，再到获客，建果名片为您提供闭环式服务。</p>
             </div>
             
-            <div className="space-y-[40vh]"> 
+            <div className="space-y-16 md:space-y-[40vh]"> 
               {features.map((feature, index) => (
                 <div 
                   key={feature.id}
@@ -210,12 +199,12 @@ export function FeatureScroll() {
               ))}
             </div>
             
-            <div className="h-[20vh]" />
+            <div className="h-0 md:h-[20vh]" />
           </div>
 
-          {/* RIGHT: Sticky Visual Display */}
-          <div className="lg:w-1/2 order-1 lg:order-2">
-            <div className="sticky top-24 h-125 w-full bg-slate-100 rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200">
+          {/* RIGHT: Sticky Visual Display (Desktop Only) */}
+          <div className="hidden lg:block lg:w-1/2 order-1 lg:order-2">
+            <div className="sticky top-20 md:top-24 h-80 md:h-125 w-full bg-slate-100 rounded-[2.5rem] overflow-hidden shadow-2xl border border-slate-200">
                 {features.map((feature, index) => (
                   <div 
                     key={feature.id}
@@ -224,7 +213,6 @@ export function FeatureScroll() {
                         activeFeature === index ? "opacity-100 z-10" : "opacity-0 z-0"
                     )}
                   >
-                    {/* 修改这里：如果是 track，手动渲染组件并传入状态；否则渲染默认的 visual */}
                     {feature.id === 'track' ? (
                       <VisitorChart isActive={activeFeature === index} />
                     ) : (
